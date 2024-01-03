@@ -4,21 +4,26 @@ body {
 
 .rows {
   display: flex;
+  margin-top: -.4rem;
 }
 
 path, svg {
-  width: 40px;
+  width: auto;
   height: 40px;
+  border-radius: 10px;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
 }
 
 svg {
   display: block;
+  /*
   margin-right: -.5rem;
   margin-top: -.5rem;
+  */
 }
 path {
   stroke: #646464;
-  stroke-width: .5px;
-  stroke-linejoin: round;
+  stroke-width: .1px;
 }
 
