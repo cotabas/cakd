@@ -92,6 +92,11 @@ p18
 p18
 p18
 p18
+p18`;
+const test2 = `
+p18
+p18
+p18
 p18
 p1, k3, p1, k3 p1, k3, p1, k3
 k1, p5, k1, p1 k1, p5, k1, p1
@@ -99,15 +104,24 @@ k2, p1, k3, p1, k1 k2, p1, k3, p1, k1
 p2, k1, p1, k1, p3 p2, k1, p1, k1, p3
 `;
 
-let vbWhole = "0 0.5 4 3"
-let vbHalf = "0 0.5 2 3"
+const halfPurl = {
+  vb: "0 0.5 1.5 3",
+  d: "M 0 1 L 4 1 L 4 4 L 0 4 L 0 1"
+}
 
-let purl = "M 0 1 L 4 1 L 4 4 L 0 4 L 0 1"
-let halfPurl = "M 0 1 L 4 1 L 4 4 L 0 4 L 0 1"
+const purl = {
+  vb: "0 0.5 3 3",
+  d: "M 0 1 L 4 1 L 4 4 L 0 4 L 0 1"
+}
 
-let knitLeft = "M 0 0 L 3 2 L 3 5 L 0 3 L 0 0"
-let knitRight = "M 3 0 L 0 2 L 0 5 L 3 3 L 3 0"
-
+const knitLeft = {
+  vb: "0 0.5 3 4",
+  d: "M 0 0 L 3 2 L 3 5 L 0 3 L 0 0"
+}
+const knitRight = {
+  vb: "0 0.5 3 4",
+  d: "M 3 0 L 0 2 L 0 5 L 3 3 L 3 0"
+}
 let main = window.document.getElementById("main")
 
 const addRow = () => {
@@ -117,21 +131,21 @@ const addRow = () => {
   document.body.appendChild(div)
 }
 
-const addStitch = (st, element, vb) => {
+const addStitch = (st, element) => {
   const stitch = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
   const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 
   path.setAttribute("class", "stitch"); 
-  path.setAttribute("d", st); 
+  path.setAttribute("d", st.d); 
   path.setAttribute("fill", "#000000");
 
-  stitch.setAttribute("viewBox", vb)
+  stitch.setAttribute("viewBox", st.vb)
 
   element.appendChild(stitch);
   stitch.appendChild(path);
 }
 
-lines = test.split("\n")
+lines = test2.split("\n")
 for (let r = 0; r < lines.length; r++) { 
   let halfie = false;
   lines[r] = lines[r].replaceAll(",", "")
@@ -144,25 +158,28 @@ for (let r = 0; r < lines.length; r++) {
 
     if (work[i][0] == "k") {
       for (j = 0; j < stCount; j++) {
-        leftKnit ? addStitch(knitLeft, main, vbWhole) : addStitch(knitRight, main, vbWhole);
+        if (halfie && j == 0) { 
+          addStitch(halfPurl, main)
+          halfie = false
+        }
+        leftKnit ? addStitch(knitLeft, main) : addStitch(knitRight, main);
         leftKnit = leftKnit ? false : true;
       }
     }
     if (work[i][0] == "p") {
-      let next = work[i + 1] == null ? i : i + 1;
       for (j = 0; j < stCount; j++) {
-        if ((r % 2 == 0 && j == 0) || (work[next][0] == "k")) {
-          addStitch(halfPurl, main, vbHalf)
+        if (r % 2 == 0 && j == 0) {
+          addStitch(halfPurl, main)
           halfie = true
         } else {
-          addStitch(purl, main, vbWhole);
+          addStitch(purl, main);
         }
         leftKnit = true;
       }
     }
   }
   if (halfie) { 
-    addStitch(halfPurl, main, vbHalf)
+    addStitch(halfPurl, main)
     halfie = false
   }
   addRow()
