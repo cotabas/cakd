@@ -7,6 +7,15 @@ body {
   margin-top: -.4rem;
 }
 
+section {
+  margin: 10px;
+}
+
+#knitInstructions {
+  width: 75ch;
+  height: 5rem;
+}
+
 path, svg {
   width: auto;
   height: 40px;

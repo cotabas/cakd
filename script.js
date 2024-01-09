@@ -122,7 +122,9 @@ const knitRight = {
   vb: "0 0.5 3 4",
   d: "M 3 0 L 0 2 L 0 5 L 3 3 L 3 0"
 }
-let main = window.document.getElementById("main")
+let main = window.document.getElementById("main");
+const knitInstructions = window.document.getElementById("knitInstructions");
+const subButton = window.document.getElementById("knit");
 
 const addRow = () => {
   const div = document.createElement("div")
@@ -145,42 +147,49 @@ const addStitch = (st, element) => {
   stitch.appendChild(path);
 }
 
-lines = test2.split("\n")
-for (let r = 0; r < lines.length; r++) { 
-  let halfie = false;
-  lines[r] = lines[r].replaceAll(",", "")
-  work = lines[r].split(" ");
+const knit = (input) => {
+  lines = input.split("\n")
+  for (let r = 0; r < lines.length; r++) { 
+    let halfie = false;
+    lines[r] = lines[r].replaceAll(",", "")
+    work = lines[r].split(" ");
 
-  console.log(work)
-  let leftKnit = true;
-  for (i = 0; i < work.length; i++) {
-    let stCount = work[i].substring(1);
+    console.log(work)
+    let leftKnit = true;
+    for (i = 0; i < work.length; i++) {
+      let stCount = work[i].substring(1);
 
-    if (work[i][0] == "k") {
-      for (j = 0; j < stCount; j++) {
-        if (halfie && j == 0) { 
-          addStitch(halfPurl, main)
-          halfie = false
+      if (work[i][0] == "k") {
+        for (j = 0; j < stCount; j++) {
+          if (halfie && j == 0) { 
+            addStitch(halfPurl, main)
+            halfie = false
+          }
+          leftKnit ? addStitch(knitLeft, main) : addStitch(knitRight, main);
+          leftKnit = leftKnit ? false : true;
         }
-        leftKnit ? addStitch(knitLeft, main) : addStitch(knitRight, main);
-        leftKnit = leftKnit ? false : true;
+      }
+      if (work[i][0] == "p") {
+        for (j = 0; j < stCount; j++) {
+          if (r % 2 == 0 && j == 0) {
+            addStitch(halfPurl, main)
+            halfie = true
+          } else {
+            addStitch(purl, main);
+          }
+          leftKnit = true;
+        }
       }
     }
-    if (work[i][0] == "p") {
-      for (j = 0; j < stCount; j++) {
-        if (r % 2 == 0 && j == 0) {
-          addStitch(halfPurl, main)
-          halfie = true
-        } else {
-          addStitch(purl, main);
-        }
-        leftKnit = true;
-      }
+    if (halfie) { 
+      addStitch(halfPurl, main)
+      halfie = false
     }
+    addRow()
   }
-  if (halfie) { 
-    addStitch(halfPurl, main)
-    halfie = false
-  }
-  addRow()
 }
+
+subButton.addEventListener("click", () => {
+  console.log(knitInstructions.value);
+  knit(knitInstructions.value)
+});
