@@ -1,108 +1,6 @@
-const test = `
-p18
-p18
-p18
-p18
-p18
-p18
-p18
-p18
-p18
-p4 k2 p4 k2 p4 k2
-p4 k2 p4 k2 p4 k2
-p4 k2 p4 k2 p4 k2
-p4 k2 p4 k2 p4 k2
-`;
-
-let test1 = `
-k2 p4 k2 p4 k2
-k2 p4 k2 p4 k2
-k2 p3 k2 p5 k2
-k2 p2 k2 p6 k2
-k2 p1 k2 p7 k2
-k2 p2 k2 p6 k2
-k2 p3 k2 p5 k2
-k2 p4 k2 p4 k2
-k2 p4 k2 p4 k2
-k2 p4 k2 p4 k2
-k2 p3 k2 p4 k2 p1
-k2 p2 k2 p4 k2 p2
-k2 p1 k2 p4 k2 p3
-k2 k2 p3 k2 p5
-k2 k2 p2 k2 p6
-k2 k2 p1 k2 p7
-k2 k2 k2 p8
-k2 k2 k2 p8
-k2 k2 k2 p8
-k2 k2 k2 p8
-k2 k2 k2 p8
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-k6 p6 k6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-p6 k6 p6
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-k4 p2 k4 p2 k4 p2
-p18
-p18
-p18
-p18
-p18
-p18
-p18
-p18
-p18`;
-const test2 = `
-p18
-p18
-p18
-p18
-p1, k3, p1, k3 p1, k3, p1, k3
-k1, p5, k1, p1 k1, p5, k1, p1
-k2, p1, k3, p1, k1 k2, p1, k3, p1, k1
-p2, k1, p1, k1, p3 p2, k1, p1, k1, p3
-`;
+let main = window.document.getElementById("main");
+const knitInstructions = window.document.getElementById("knitInstructions");
+const subButton = window.document.getElementById("knit");
 
 const halfPurl = {
   vb: "0 0.5 1.5 3",
@@ -122,9 +20,6 @@ const knitRight = {
   vb: "0 0.5 3 4",
   d: "M 3 0 L 0 2 L 0 5 L 3 3 L 3 0"
 }
-let main = window.document.getElementById("main");
-const knitInstructions = window.document.getElementById("knitInstructions");
-const subButton = window.document.getElementById("knit");
 
 const addRow = () => {
   const div = document.createElement("div")
